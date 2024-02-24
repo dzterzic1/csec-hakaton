@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CovidDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/covid', [CovidDataController::class, 'index'])->name('covid.index');
+Route::get('/covid/create', [CovidDataController::class, 'create'])->name('covid.create');
+Route::post('/covid/store', [CovidDataController::class, 'store'])->name('covid.store');
+Route::get('/covid/edit/{id}', [CovidDataController::class, 'edit'])->name('covid.edit');
+Route::put('/covid/update/{id}', [CovidDataController::class, 'update'])->name('covid.update');
+
+Route::put('/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');
