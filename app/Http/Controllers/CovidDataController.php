@@ -85,6 +85,12 @@ class CovidDataController extends Controller
         return redirect()->route('home')->with('success', 'Covid-19 record updated successfully.');
     }
 
+    public function editFinalResult(Request $request, $id)
+    {
+        $covidData = CovidData::find($id);
+        return view('covid.editFinalResult', compact('covidData'));
+    }
+
     public function updateFinalResult(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -98,9 +104,9 @@ class CovidDataController extends Controller
         $covidData = CovidData::findOrFail($id);
 
         $covidData->update([
-            'FinalResult' => $request->input('final_result')
+            'FinalResult' => $request->input('final_result'),
         ]);
 
-        return redirect()->route('home')->with('success', 'Final result updated successfully');
+        return redirect()->route('home')->with('success', 'Covid-19 final result updated successfully.');
     }
 }

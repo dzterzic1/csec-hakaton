@@ -25,5 +25,5 @@ Route::middleware('auth', 'role:lab')->get('/covid/create', [CovidDataController
 Route::middleware('auth', 'role:lab')->post('/covid/store', [CovidDataController::class, 'store'])->name('covid.store');
 Route::middleware('auth', 'role:lab')->get('/covid/edit/{id}', [CovidDataController::class, 'edit'])->name('covid.edit');
 Route::middleware('auth', 'role:lab')->put('/covid/update/{id}', [CovidDataController::class, 'update'])->name('covid.update');
-
-Route::middleware('auth', 'role:doc')->put('/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');
+Route::middleware('auth', 'role:doc')->get('/covid/editFinalResult/{id}', [CovidDataController::class, 'editFinalResult'])->name('covid.editFinalResult');
+Route::middleware('auth', 'role:doc')->put('/covid/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');
