@@ -21,7 +21,9 @@
                         <th>Mid%</th>
                         <th>Gran%</th>
                         <th>HGB</th>
+                        @if(auth()->user()->role_id == 1)
                         <th>Final Result</th>
+                        @endif
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,7 +36,9 @@
                         <td>{{ $data->Mid }}</td>
                         <td>{{ $data->Gran }}</td>
                         <td>{{ $data->HGB }}</td>
+                        @if(auth()->user()->role_id == 1)
                         <td>{{ $data->FinalResult }}</td>
+                        @endif
                         <td>
                             @if(auth()->user()->role_id == 2)
                             <a href="{{ route('covid.edit', ['id' => $data->id]) }}" class="btn btn-sm btn-primary">Edit</a>
