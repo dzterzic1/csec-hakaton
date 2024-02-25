@@ -93,14 +93,6 @@ class CovidDataController extends Controller
 
     public function updateFinalResult(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'FinalResult' => 'required|in:Heavy,Medium,Light',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
         $covidData = CovidData::findOrFail($id);
 
         $covidData->update([
