@@ -66,18 +66,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        try {
-            $userRole = UserRole::where('keyword', $data['keyword'])->firstOrFail();
-        } catch (ModelNotFoundException $exception) {
-            // Handle the case when the user role is not found, for example:
-            return redirect()->route('register')->with('error', 'Invalid user role provided');
+        $userRoles = UserRole::all();
+        foreach ($userRoles as $userRole) {
+            if (Hash::check($data['keyword'], $userRole->keyword)) {
+                return User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'role_id' => $userRole->id,
+                ]);
+            }
         }
-
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => $userRole->id,
-        ]);
+        return redirect()->route('register')->with('error', 'Invalid user role provided');
     }
 }
