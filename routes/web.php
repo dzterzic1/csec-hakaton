@@ -25,5 +25,6 @@ Route::middleware('auth:sanctum')->get('/covid/create', [CovidDataController::cl
 Route::middleware('auth:sanctum')->post('/covid/store', [CovidDataController::class, 'store'])->name('covid.store');
 Route::middleware('auth:sanctum')->get('/covid/edit/{id}', [CovidDataController::class, 'edit'])->name('covid.edit');
 Route::middleware('auth:sanctum')->put('/covid/update/{id}', [CovidDataController::class, 'update'])->name('covid.update');
-
-Route::middleware('auth:sanctum')->put('/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');
+// Route::middleware('auth:sanctum')->put('/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');
+Route::middleware('auth:sanctum')->get('/covid/editFinalResult/{id}', [CovidDataController::class, 'editFinalResult'])->name('covid.editFinalResult');
+Route::middleware('auth:sanctum')->put('/covid/updateFinalResult/{id}', [CovidDataController::class, 'updateFinalResult'])->name('covid.updateFinalResult');

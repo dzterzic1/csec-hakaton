@@ -39,8 +39,7 @@
                             @if(auth()->user()->role_id == 2)
                             <a href="{{ route('covid.edit', ['id' => $data->id]) }}" class="btn btn-sm btn-primary">Edit</a>
                             @elseif(auth()->user()->role_id == 1)
-                            <button class="btn btn-sm btn-success add-final-result">Add Final Result</button>
-
+                            <a href="{{ route('covid.editFinalResult', ['id' => $data->id]) }}" class="btn btn-sm btn-primary">Edit Final Result</a>
                             @endif
                         </td>
                     </tr>
