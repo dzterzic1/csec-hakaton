@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Models\CovidData;
 
@@ -21,7 +22,7 @@ class CovidDataController extends Controller
 
     public function store(Request $request)
     {
-        $failed = $request->validate([
+        $validator = Validator::make($request->all(), [
             'SPOL' => 'required|in:0,1',
             'LE_WBC' => 'required|numeric|min:0',
             'Limf' => 'required|numeric|min:0',
@@ -30,8 +31,8 @@ class CovidDataController extends Controller
             'HGB' => 'required|numeric|min:0',
         ]);
 
-        if ($failed . isNonEmptyString()) {
-            return redirect()->route('covid.create')->with('failure', 'Invalid field values.');
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
 
         $covidData = new CovidData([
@@ -56,14 +57,19 @@ class CovidDataController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'SPOL' => 'required',
-            'LE_WBC' => 'required',
-            'Limf' => 'required',
-            'Mid' => 'required',
-            'Gran' => 'required',
-            'HGB' => 'required',
+        $validator = Validator::make($request->all(), [
+            'SPOL' => 'required|numeric|in:0,1',
+            'LE_WBC' => 'required|numeric|min:0',
+            'Limf' => 'required|numeric|min:0',
+            'Mid' => 'required|numeric|min:0',
+            'Gran' => 'required|numeric|min:0',
+            'HGB' => 'required|numeric|min:0',
         ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput($request->input());
+            //return back()->withErrors($validator);
+        }
 
         $covidData = CovidData::findOrFail($id);
 
@@ -81,6 +87,14 @@ class CovidDataController extends Controller
 
     public function updateFinalResult(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'FinalResult' => 'required|in:Heavy,Medium,Light',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
         $covidData = CovidData::findOrFail($id);
 
         $covidData->update([
