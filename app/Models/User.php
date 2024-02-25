@@ -51,6 +51,10 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        return $this->role->keyword === $role;
+        $role_id = 1;
+        if ($role == 'lab') {
+            $role_id = 2;
+        }
+        return $this->role->id === $role_id;
     }
 }
