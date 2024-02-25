@@ -25,6 +25,9 @@ class CovidDataController extends Controller
             'SPOL' => 'required',
             'LE_WBC' => 'required',
             'Limf' => 'required',
+            'Mid' => 'required',
+            'Gran' => 'required',
+            'HGB' => 'required',
         ]);
 
         $covidData = new CovidData([

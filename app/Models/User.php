@@ -49,13 +49,8 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class, 'role_id');
     }
 
-    public function isDoctor()
+    public function hasRole($role)
     {
-        return $this->role->keyword === 'doctor';
-    }
-
-    public function isLabTechnician()
-    {
-        return $this->role->keyword === 'lab';
+        return $this->role->keyword === $role;
     }
 }
