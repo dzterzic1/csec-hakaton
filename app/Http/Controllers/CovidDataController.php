@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\CovidData;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class CovidDataController extends Controller
 {
@@ -100,5 +102,22 @@ class CovidDataController extends Controller
         ]);
 
         return redirect()->route('home')->with('success', 'Covid-19 final result updated successfully.');
+    }
+
+    public function generatePdf($id)
+    {
+        $data = CovidData::findOrFail($id);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        $html = view('covid.covidDataPdf', compact('data'))->render();
+        $dompdf->loadHtml($html);
+
+        $dompdf->render();
+
+        return $dompdf->stream('covid_data_' . $id . '.pdf');
     }
 }

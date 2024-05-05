@@ -45,6 +45,10 @@
                             @elseif(auth()->user()->role_id == 1)
                             <a href="{{ route('covid.editFinalResult', ['id' => $data->id]) }}" class="btn btn-sm btn-primary">Edit Final Result</a>
                             @endif
+                            <form method="POST" action="{{ route('covid.generatePdf', ['id' => $data->id]) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-success">Download PDF</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
